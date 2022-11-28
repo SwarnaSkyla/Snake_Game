@@ -34,6 +34,9 @@ public class Board extends JPanel implements ActionListener {
     Image bodydot;
 
     boolean inGame=true;
+    int appleEaten;
+
+
 
     Board(){
         addKeyListener(new TAdapter());
@@ -42,6 +45,7 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(height,width));
         loadImages();
         initGame();
+
 
     }
     public  void initGame(){
@@ -73,6 +77,7 @@ public class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         doDrawing(g);
+
     }
     public void doDrawing(Graphics g){
         if(inGame) {
@@ -85,12 +90,14 @@ public class Board extends JPanel implements ActionListener {
         }
         else{
             gameOver(g);
+
         }
 
     }
     public void checkApple(){
         if(x[0]==apple_x && y[0]==apple_y){
             dots++;
+            appleEaten++;
             locateApple();
         }
     }
@@ -126,13 +133,27 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void gameOver(Graphics g){
-        String msg="Game Over";
-        Font font=new Font("Helvetica",Font.BOLD,14);
-        FontMetrics fontMetrics=getFontMetrics(font);
+        String m="Score:"+appleEaten;
+        Font font =new Font("Helvetica",Font.BOLD,14);
+        FontMetrics fontMetric=getFontMetrics(font);
 
         g.setColor(Color.WHITE);
         g.setFont(font);
+        g.drawString(m,(width-fontMetric.stringWidth(m))/2,(height/2)-20);
+
+
+        String msg="Game Over";
+        Font fonT=new Font("Helvetica",Font.BOLD,14);
+        FontMetrics fontMetrics=getFontMetrics(fonT);
+
+        g.setColor(Color.WHITE);
+        g.setFont(fonT);
         g.drawString(msg,(width-fontMetrics.stringWidth(msg))/2,height/2);
+
+
+
+
+
     }
     public void move(){
         for(int z=dots-1;z>0;z--){
@@ -154,9 +175,12 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(inGame) {
+//            move();
+//            checkApple();
             checkCollision();
             checkApple();
             move();

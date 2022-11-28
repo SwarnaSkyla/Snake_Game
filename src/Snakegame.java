@@ -8,6 +8,7 @@ public class Snakegame {
 
         Board board=new Board();
         frame.add(board);
+        frame.setTitle("Snake Game");
         frame.setResizable(false);
 
         frame.setVisible(true);
@@ -16,6 +17,7 @@ public class Snakegame {
     }
 
     public static void main(String[] args) {
+
         Snakegame snakegame=new Snakegame();
     }
 }
